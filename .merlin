@@ -2,7 +2,7 @@
 S src
 
 # build path
-B _build
+B _build/src
 
 # package path
 PKG qcheck ppx_deriving.show
