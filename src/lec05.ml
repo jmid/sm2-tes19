@@ -63,7 +63,7 @@ struct
 
   (*  agree_test : QCheck.Test.t  *)
   let agree_test =
-    Test.make ~name:"Hashtbl-model agreement 1" ~count:500
+    Test.make ~name:"Hashtbl-model agreement w/o state-dependence" ~count:500
       arb_cmds
       (fun cs -> interp_agree [] (Hashtbl.create ~random:false 42) cs)
   ;;
@@ -111,7 +111,7 @@ struct
 
   (*  agree_test : QCheck.Test.t  *)
   let agree_test =
-    Test.make ~name:"Hashtbl-model agreement 2" ~count:500
+    Test.make ~name:"Hashtbl-model agreement w/ state-dependence" ~count:500
       arb_cmds
       (fun cs -> interp_agree [] (Hashtbl.create ~random:false 42) cs)
   ;;
