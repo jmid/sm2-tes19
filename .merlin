@@ -5,4 +5,4 @@ S src
 B _build
 
 # package path
-PKG qcheck
+PKG qcheck ppx_deriving.show

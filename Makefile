@@ -1,3 +1,6 @@
+lec05:
+	ocamlbuild -use-ocamlfind -package qcheck,ppx_deriving.show src/lec05.byte
+
 lec04:
 	ocamlbuild -use-ocamlfind -package qcheck src/lec04.byte
 
