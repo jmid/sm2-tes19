@@ -1,6 +1,12 @@
 lec05:
 	ocamlbuild -use-ocamlfind -package qcheck,ppx_deriving.show src/lec05.byte
 
+lec05hashtable:
+	ocamlbuild -use-ocamlfind -package qcheck,ppx_deriving.show src/lec05hashtable.native
+
+lec05queue:
+	ocamlbuild -use-ocamlfind -package qcheck,ppx_deriving.show src/lec05queue.native
+
 lec04:
 	ocamlbuild -use-ocamlfind -package qcheck src/lec04.byte
 
