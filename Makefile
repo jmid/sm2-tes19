@@ -13,6 +13,11 @@ lec06putgetcomp: lec06putgetlib.o
 lec06putgetlib.o: src/lec06putgetlib.c
 	ocamlbuild src/lec06putgetlib.o
 
+lec06putgetlib.so: src/lec06putgetlib.c
+	if [[ ! -d _build ]]; then mkdir _build; fi
+	if [[ ! -d _build/src ]]; then mkdir _build/src; fi
+	gcc -shared -o _build/src/lec06putgetlib.so -fPIC src/lec06putgetlib.c
+
 lec05:
 	ocamlbuild -use-ocamlfind -package qcheck,ppx_deriving.show src/lec05.byte
 
