@@ -30,18 +30,18 @@ struct
   let next_state c s = match c with
     | Pop ->
       (match s with
-        | []    -> failwith "tried to pop empty queue"
+        | []    -> []
         | _::s' -> s')
     | Top -> s
     | Push i -> (*s@[i]*)
-      if i<>135 then s@[i] else s  (* an artificial fault in the model *)
+  if i<>135 then s@[i] else s  (* an artificial fault in the model *)
 
   let init_sut () = Queue.create ()
   let cleanup _   = ()
   let run_cmd c s q = match c with
     | Pop -> (try Queue.pop q = List.hd s with _ -> false)
     | Top -> (try Queue.top q = List.hd s with _ -> false)
-    | Push n -> begin Queue.push n q; true end
+    | Push n -> Queue.push n q; true
 
   let precond c s = match c with
     | Pop    -> s<>[]
@@ -52,4 +52,5 @@ end
 module QT = QCSTM.Make(QConf)
 ;;
 QCheck_runner.run_tests ~verbose:true
-  [QT.agree_test ~count:10_000 ~name:"queue-model agreement"]
+  [QT.consistency_test ~count:10_000 ~name:"queue gen-precond agreement";
+   QT.agree_test       ~count:10_000 ~name:"queue-model agreement"]
