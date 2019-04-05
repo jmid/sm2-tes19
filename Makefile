@@ -1,3 +1,13 @@
+lec08aexp:
+	ocamlbuild -use-ocamlfind -package qcheck,ppx_deriving.show,bisect_ppx src/lec08aexp.native
+	BISECT_COVERAGE=YES ./lec08aexp.native
+	bisect-ppx-report -I _build/src/ -html coverage/ bisect0001.out
+
+lec08fac:
+	ocamlbuild -use-ocamlfind -package bisect_ppx src/lec08fac.byte
+	BISECT_COVERAGE=YES ./lec08fac.byte
+	bisect-ppx-report -I _build/src/ -html coverage/ bisect0001.out
+
 lec06:
 	ocamlbuild -use-ocamlfind -package qcheck,ppx_deriving.show src/lec06.native
 
@@ -38,4 +48,4 @@ lec02:
 
 clean:
 	ocamlbuild -clean
-	rm -f tmp.c tmp tmp.stdout tmp.stderr
+	rm -f tmp.c tmp tmp.stdout tmp.stderr bisect000*.out
