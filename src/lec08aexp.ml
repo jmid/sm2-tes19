@@ -18,6 +18,10 @@ let rec interpret xval ae = match ae with
     let v1 = interpret xval ae1 in
     v0 * v1
 
+(* There's a problem in the following.
+   Can you spot it?
+   Otherwise the coverage report will reveal it... *)
+
 let leafgen = Gen.map (fun i -> Lit i) Gen.int
 let mygen =
   Gen.sized (Gen.fix (fun recgen n -> match n with
