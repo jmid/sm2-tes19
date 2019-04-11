@@ -1,3 +1,7 @@
+lec09:
+	ocamlbuild -use-ocamlfind -package qcheck src/lec09.byte
+	ocamlbuild -use-ocamlfind -package qcheck src/lec09.cma
+
 lec08aexp:
 	ocamlbuild -use-ocamlfind -package qcheck,ppx_deriving.show,bisect_ppx src/lec08aexp.native
 	BISECT_COVERAGE=YES ./lec08aexp.native
