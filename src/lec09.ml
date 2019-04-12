@@ -27,16 +27,16 @@ module BNF =
 
     (* a grammar-based generator *)
     let gen =
-      let rec mygen gas = match gas with
+      let rec mygen gas rs = match gas with
         | 0 -> Gen.oneof
                  [Gen.map (fun x -> Var x) vargen;
-                  Gen.map (fun l -> Lit l) litgen]
+                  Gen.map (fun l -> Lit l) litgen] rs
         | _ -> Gen.oneof
                  [Gen.map  (fun x -> Var x) vargen;
                   Gen.map2 (fun x e -> Lam (x,e)) vargen (mygen (gas-1));
                   Gen.map  (fun l -> Lit l) litgen;
                   Gen.map2 (fun e e' -> App (e,e')) (mygen (gas/2)) (mygen (gas/2));
-                 ]
+                 ] rs
       in Gen.sized mygen
   end
 
@@ -55,12 +55,12 @@ module DB =
       (* param i:
            None   - no enclosing binders,
            Some j - j enclosing binders *)
-      let rec mygen i gas = match gas with
+      let rec mygen i gas rs = match gas with
         | 0 -> Gen.oneof
                  ((if i <> None
                    then [Gen.return (Var 0)]
                    else [])
-                  @ [Gen.map (fun l -> Lit l) litgen])
+                  @ [Gen.map (fun l -> Lit l) litgen]) rs
         | _ -> Gen.frequency
                  ((match i with
                    | None   -> (* No vars: outside a binder *)
@@ -69,6 +69,6 @@ module DB =
                                 (1, Gen.map (fun e -> Lam e) (mygen (Some (j+1)) (gas-1)));])
 	          @ [(1, Gen.map (fun l -> Lit l) litgen);
                (1, Gen.map2 (fun e e' -> App (e,e')) (mygen i (gas/2)) (mygen i (gas/2)));
-           ])
+           ]) rs
       in Gen.sized (mygen None)
   end
