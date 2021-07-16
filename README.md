@@ -1,3 +1,7 @@
+ | **Note:** The 2019 repository has been archieved. Consider the revised 2021 material instead: [https://github.com/jmid/sm2-tes21](https://github.com/jmid/sm2-tes21) |
+ :------------------------------------------------------------------:
+
+
 SM2-TES: Functional Programming and Property-Based Testing
 ==========================================================
 
